@@ -126,9 +126,6 @@
             <span class="author-block">University of Maryland, College Park</span>
           </div>
 		<br>
-          <!-- <div class="is-size-5 publication-authors">
-            <span class="author-block">ICCV 2023</span>
-          </div> -->
 
           <div class="column has-text-centered">
             <div class="publication-links">
@@ -252,6 +249,30 @@
   </div>
 </section>
 
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Approach</h2>
+        <div class="content is-centered">
+          <img src="./static/images/approach.png">
+
+          <p>
+            Our approach consists of two key components: (1) quantized embeddings and (2) coarse-to-fine training.
+            We represent attributes of each Gaussian using quantized latents which are decoded using a decoder to
+            obtain the original attributes. We also progressively render the image and apply the reconstruction loss
+            with increasing resolution. This allows us to train the model faster and also leads to better
+            optimization. We additionally also control the frequency of densification of the Gaussians which 
+            significantly improves the speed without compromising on the quality.
+          </p>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <section class="hero is-light is-small">
   <div class="hero-body">
     <div class="container has-text-centered">
@@ -289,33 +310,6 @@
 
 <section class="section">
   <div class="container">
-    <!-- Concurrent Work. -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Approach</h2>
-        <div class="content is-centered">
-          <img src="./static/images/approach.png">
-
-          <p>
-            Our approach consists of two key components: (1) quantized embeddings and (2) coarse-to-fine training.
-            We represent attributes of each Gaussian using quantized latents which are decoded using a decoder to
-            obtain the original attributes. We also progressively render the image and apply the reconstruction loss
-            with increasing resolution. This allows us to train the model faster and also leads to better
-            optimization. We additionally also control the frequency of densification of the Gaussians which 
-            significantly improves the speed without compromising on the quality.
-          </p>
-
-        </div>
-      </div>
-    </div>
-    <!--/ Concurrent Work. -->
-
-  </div>
-</section>
-
-<section class="section">
-  <div class="container">
-    <!-- Concurrent Work. -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-full-width">
         <h2 class="title is-3">Qualitative Comparisons</h2>
@@ -334,7 +328,6 @@
         </div>
       </div>
     </div>
-    <!--/ Concurrent Work. -->
 
   </div>
 </section>

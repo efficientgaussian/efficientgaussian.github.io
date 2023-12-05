@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="EAGLES: Efficient Accelerated 3D Gaussians with Lightweight EncodingS">
+  <meta name="keywords" content="Nerf, 3D, Compression, Gaussian Splatting, Quantization">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EAGLES: Efficient Accelerated 3D Gaussians with Lightweight EncodingS</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', '');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./resources/favicon.png">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<!-- <nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+</nav> -->
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://sharath-girish.github.io/">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://lilnetx.github.io/">
+            LilNetX
+          </a>
+          <a class="navbar-item" href="https://shacira.github.io">
+            SHACIRA
+          </a>
+          <a class="navbar-item" href="https://www.cs.umd.edu/~shishira/Nirvana/nirvana.html">
+            NIRVANA
+          </a>
+          <a class="navbar-item" href="https://lth-recognition.github.io/">
+            LTH-Recognition
+          </a>
+          
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+<head>
+    <style>
+        .figure {
+            float: left; 
+            padding-top: 10px;
+            margin-right: 20px; 
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+    </style>
+</head>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title"> EAGLES: Efficient Accelerated 3D Gaussians with Lightweight EncodingS</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+				<a href="https://sharath-girish.github.io/">Sharath Girish</a>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="https://kampta.github.io">Kamal Gupta</a>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="https://www.cs.umd.edu/~abhinav">Abhinav Shrivastava</a>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			</span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">University of Maryland, College Park</span>
+          </div>
+		<br>
+          <!-- <div class="is-size-5 publication-authors">
+            <span class="author-block">ICCV 2023</span>
+          </div> -->
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+
+              <!-- arXiv Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-bicycle">
+          <video poster="" id="bicycle" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/bicycle_360.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-playroom">
+          <video poster="" id="playroom" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/playroom_360.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-room">
+          <video poster="" id="room" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/room_360.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-garden">
+          <video poster="" id="garden" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/garden_360.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-drjohnson">
+          <video poster="" id="drjohnson" autoplay controls muted loop playsinline height="200%">
+            <source src="./static/videos/drjohnson.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-stump">
+          <video poster="" id="stump" autoplay controls muted loop playsinline height="200%">
+            <source src="./static/videos/stump_360.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-train">
+          <video poster="" id="train" autoplay controls muted loop playsinline height="200%">
+            <source src="./static/videos/train_360.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <p>
+        Our method achieves similar reconstruction quality as 3D-GS (PSNR in dB) with 10-20x smaller model
+        size (MB) and faster rendering speeds (FPS).
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+          Recently, 3D Gaussian splatting (3D-GS) has gained popularity in novel-view scene synthesis. 
+          It addresses the challenges of lengthy training times and slow rendering speeds associated with 
+          Neural Radiance Fields (NeRFs). Through rapid, differentiable rasterization of 3D Gaussians, 
+          3D-GS achieves real-time rendering and accelerated training.  
+          They, however, demand substantial memory resources for both training and storage, 
+          as they require millions of Gaussians in their point cloud representation for each scene. 
+          </p>
+          <p>
+          We present a technique utilizing quantized embeddings to significantly reduce memory 
+          storage requirements and a coarse-to-fine training strategy for a faster and more stable 
+          optimization of the Gaussian point clouds. Our approach results in scene representations 
+          with fewer Gaussians and quantized representations, leading to faster training times and 
+          rendering speeds for real-time rendering of high resolution scenes. We reduce memory by 
+          more than an order of magnitude all while maintaining the reconstruction quality. 
+          We validate the effectiveness of our approach on a variety of datasets and scenes 
+          preserving the visual quality while consuming 10-20x less memory and faster 
+          training/inference speed.
+        </p>
+		</div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <h2 class="title has-text-centered">Training convergence speed</h2>
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-bicycle">
+          <video poster="" id="bicycle" controls muted playsinline height="100%">
+            <source src="./static/videos/bicycle10_convergence.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-drjohnson">
+          <video poster="" id="drjohnson" controls muted playsinline height="100%">
+            <source src="./static/videos/drjohnson10_convergence.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-kitchen">
+          <video poster="" id="kitchen" controls muted playsinline height="100%">
+            <source src="./static/videos/kitchen10_convergence.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-stump">
+          <video poster="" id="stump" controls muted playsinline height="100%">
+            <source src="./static/videos/stump10_convergence.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+    </div>
+    <p> Our method converges faster than 3D-GS achieving better reconstruction quality early on and 
+      reaching similar quality at the end of training.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <!-- Concurrent Work. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Approach</h2>
+        <div class="content is-centered">
+          <img src="./static/images/approach.png">
+
+          <p>
+            Our approach consists of two key components: (1) quantized embeddings and (2) coarse-to-fine training.
+            We represent attributes of each Gaussian using quantized latents which are decoded using a decoder to
+            obtain the original attributes. We also progressively render the image and apply the reconstruction loss
+            with increasing resolution. This allows us to train the model faster and also leads to better
+            optimization. We additionally also control the frequency of densification of the Gaussians which 
+            significantly improves the speed without compromising on the quality.
+          </p>
+
+        </div>
+      </div>
+    </div>
+    <!--/ Concurrent Work. -->
+
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <!-- Concurrent Work. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Qualitative Comparisons</h2>
+        <div class="content has-text-justified ">
+          <img src="./static/images/qualitative.png">
+
+          <p>
+            We show qualitative results on various scenes from the MipNeRF dataset.
+            Fast NeRF methods such as Instant-NGP and Plenoxels produce blurry results.
+            Mip-NeRF360, while producing sharp results, is extremely slow to train and render.
+            3D-GS on the other hand has floaters at the boundaries of the scene due to 
+            ill-optimized Gaussians. Our method reconstructs the scene with fine details with
+            fewer artifacts while also being much smaller and faster.
+          </p>
+
+        </div>
+      </div>
+    </div>
+    <!--/ Concurrent Work. -->
+
+  </div>
+</section>
+
+<section class="section">
+	<div class="container is-max-desktop has-text-centered">
+	  <h2 class="title is-3">GPU Memory Usage</h2>
+	  
+	<body>
+		<div class="figure">
+			<img src="./static/images/gpu_memory.png" alt="gpu_memory" width="500px">
+		</div>
+
+		<h2 class="content has-text-justified">
+      We compare peak GPU memory usage of our method with 3D-GS during training and rendering.
+      Our method consumes lower GPU memory during both phases. Notably, for the Bicycle scene,
+      we obtain 42% reduction during training, requiring only 10G of GPU RAM compared to the 17.4G by 3D-GS.
+      This allows training on such high resolution scenes even with standard consumer-grade GPUs (e.g., NVIDIA RTX 2080 Ti).
+		</h2>
+		<br>
+
+	</body>
+
+	</div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+
+      <!-- arXiv Link. -->
+      <span class="link-block">
+        <a href=""
+            class="external-link button is-normal is-rounded is-dark">
+          <span class="icon">
+              <i class="ai ai-arxiv"></i>
+          </span>
+          <span>arXiv</span>
+        </a>
+      </span>
+      <!-- Code Link. -->
+      <span class="link-block">
+        <a href=""
+           class="external-link button is-normal is-rounded is-dark">
+          <span class="icon">
+              <i class="fab fa-github"></i>
+          </span>
+          <span>Code</span>
+          </a>
+      </span>
+
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-4">
+        <div class="content">
+            Template borrowed from awesome <a
+            href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> website.
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

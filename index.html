@@ -124,6 +124,9 @@
 
           <div class="is-size-5 publication-authors">
             <span class="author-block">University of Maryland, College Park</span>
+          </div> <br>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">ECCV 2024</span>
           </div>
 		<br>
 
@@ -243,7 +246,8 @@
           <p>
           We present a technique utilizing quantized embeddings to significantly reduce memory 
           storage requirements and a coarse-to-fine training strategy for a faster and more stable 
-          optimization of the Gaussian point clouds. Our approach results in scene representations 
+          optimization of the Gaussian point clouds. We additionally incorporate a pruning stage
+          for removing redundant Gaussians. Our approach results in scene representations 
           with fewer Gaussians and quantized representations, leading to faster training times and 
           rendering speeds for real-time rendering of high resolution scenes. We reduce memory by 
           more than an order of magnitude all while maintaining the reconstruction quality. 
@@ -267,12 +271,11 @@
           <img src="./static/images/approach.png">
 
           <p>
-            Our approach consists of two key components: (1) quantized embeddings and (2) coarse-to-fine training.
+            Our approach consists of three key components: (1) quantized embeddings (2) coarse-to-fine training and (3) influence pruning.
             We represent attributes of each Gaussian using quantized latents which are decoded using a decoder to
             obtain the original attributes. We also progressively render the image and apply the reconstruction loss
             with increasing resolution. This allows us to train the model faster and also leads to better
-            optimization. We additionally also control the frequency of densification of the Gaussians which 
-            significantly improves the speed without compromising on the quality.
+            optimization. We additionally also prune Gaussians which significantly improves the speed without compromising on the quality.
           </p>
 
         </div>
